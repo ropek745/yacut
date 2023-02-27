@@ -1,10 +1,14 @@
-from flask import render_template, flash, redirect
+from flask import flash, redirect, render_template
 
 from . import app, db
-from .models import URLMap
+from .constants import TEMPLATE, INVALID_SYMBOLS, NOT_UNIQUE_ID, BASE_URL
 from .forms import CutLinkForm
-from .utils import get_unique_short_url, check_symbols_in_short_id, check_unique_short_id
-from .constants import BASE_URL, TEMPLATE, INVALID_SYMBOLS, NOT_UNIQUE_ID
+from .models import URLMap
+from .utils import (
+    get_unique_short_url,
+    check_symbols_in_short_id,
+    check_unique_short_id
+)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -29,11 +33,13 @@ def index_view():
         return render_template(
             TEMPLATE,
             form=form,
-            short_link='http://localhost/' + custom_id
+            short_link=BASE_URL + custom_id
         )
     return render_template(TEMPLATE, form=form)
 
 
 @app.route('/<string:short>')
 def redirect_to_original(short):
-    return redirect(URLMap.query.filter_by(short=short).first_or_404().original)
+    return redirect(
+        URLMap.query.filter_by(short=short).first_or_404().original
+    )

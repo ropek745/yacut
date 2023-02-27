@@ -19,4 +19,3 @@ def check_unique_short_id(custom_id):
     if URLMap.query.filter_by(short=custom_id).first():
         return custom_id
     return False
-

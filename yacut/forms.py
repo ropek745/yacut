@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import URLField, SubmitField, StringField
-from wtforms.validators import DataRequired, URL, Length, Optional, Regexp
+from wtforms import URLField, SubmitField
+from wtforms.validators import DataRequired, URL, Length, Optional
 
 
 class CutLinkForm(FlaskForm):
