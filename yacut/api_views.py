@@ -20,7 +20,7 @@ def add_link():
 
     if data is None:
         raise InvalidAPIUsage('Отсутствует тело запроса', 400)
-    if 'url' not in data or 'custom_id' not in data:
+    if 'url' not in data:
         raise InvalidAPIUsage('"url" является обязательным полем!', 400)
     if 'custom_id' not in data or data['custom_id'] is None:
         data['custom_id'] = get_unique_short_url()
