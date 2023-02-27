@@ -57,4 +57,3 @@ def add_link():
         'url': data['url'],
         'short_link': BASE_URL + data['custom_id']
     }), HTTPStatus.CREATED
-
