@@ -1,37 +1,62 @@
-Клонировать репозиторий и перейти в него в командной строке:
+# Проект Yacut
 
-```
-git clone 
-```
+Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
-```
-cd yacut
-```
+## Технологии:
+* Python 3.10
+* Flask 2.0.2
+* SQLAlchemy 1.4.29
 
-Cоздать и активировать виртуальное окружение:
+## Порядок запуска:
+1. Клонировать репозиторий и перейти в него в командной строке:
 
-```
-python3 -m venv venv
-```
+      ```
+      git clone git@github.com:ropek745/yacut.git
+      ```
+      
+      ```
+      cd yacut
+      ```
 
-* Если у вас Linux/macOS
-
-    ```
-    source venv/bin/activate
-    ```
-
-* Если у вас windows
+2. Cоздать и активировать виртуальное окружение:
 
     ```
-    source venv/scripts/activate
+    python3 -m venv venv
     ```
 
-Установить зависимости из файла requirements.txt:
+  * Если у вас Linux/macOS
+  
+      ```
+      source venv/bin/activate
+      ```
 
-```
-python3 -m pip install --upgrade pip
-```
+  * Если у вас Windows
 
-```
-pip install -r requirements.txt
-```
+      ```
+      source venv/scripts/activate
+      ```
+
+3. Установить зависимости из файла requirements.txt:
+
+    ```
+    python3 -m pip install --upgrade pip
+    ```
+    
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. Создать файл ```.env``` в корне проекта и установить параметры
+   ```
+    FLASK_APP=yacut
+    FLASK_ENV=production
+    DATABASE_URI=sqlite:///db.sqlite3
+    SECRET_KEY=YOUR_SECRET_KEY
+   ```
+5. Запустить проект
+    ```
+   flask run
+   ```
+    Проект будет доступен по адресу http://localhost/
+
+## Разработчик - [Роман Пекарев](https://github.com/ropek745) ##

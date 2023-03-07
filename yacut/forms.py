@@ -1,23 +1,33 @@
 from flask_wtf import FlaskForm
-from wtforms import URLField, SubmitField
-from wtforms.validators import DataRequired, URL, Length, Optional
+from wtforms import SubmitField, URLField
+from wtforms.validators import DataRequired, Length, Optional, URL
+
+from .constants import (
+    BUTTON_DESC,
+    CUSTOM_ID_DESC,
+    CUSTOM_ID_LEN,
+    DATA_REQUIRED,
+    ORIGINAL_LINK_DESC,
+    ORIGINAL_LINK_LEN,
+    URL_MESSAGE,
+)
 
 
 class CutLinkForm(FlaskForm):
     original_link = URLField(
-        'Ссылка для укорачивания',
+        ORIGINAL_LINK_DESC,
         validators=[
-            DataRequired(message='Обязательное поле!'),
-            Length(1, 256),
-            URL(message='Должна быть ссылка!')
+            DataRequired(message=DATA_REQUIRED),
+            Length(max=ORIGINAL_LINK_LEN),
+            URL(message=URL_MESSAGE)
         ]
     )
     custom_id = URLField(
-        'Введите свою ссылку (опционально)',
+        CUSTOM_ID_DESC,
         validators=[
             Optional(),
-            Length(1, 16),
+            Length(max=CUSTOM_ID_LEN),
 
         ]
     )
-    submit = SubmitField('Укоротить')
+    submit = SubmitField(BUTTON_DESC)
