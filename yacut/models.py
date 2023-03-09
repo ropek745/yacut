@@ -4,16 +4,14 @@ from random import sample
 from yacut import db
 from .error_handlers import ValidationError
 from .constants import (
-    ITERATION_COUNT,
-    INVALID_NAME,
-    LENGTH_SHORT_ID,
-    LENGTH_CUSTOM_ID,
-    NAME_ALREADY_TAKEN,
-    NOT_UNIQUE_ID,
-    ORIGINAL_LINK_LEN,
-    REGEX,
-    SYMBOLS,
+    ITERATION_COUNT, LENGTH_SHORT_ID, LENGTH_CUSTOM_ID,
+    ORIGINAL_LINK_LEN, REGEX, SYMBOLS
 )
+
+
+INVALID_NAME = 'Указано недопустимое имя для короткой ссылки'
+NAME_ALREADY_TAKEN = 'Имя "{custom_id}" уже занято.'
+NOT_UNIQUE_ID = 'Имя {custom_id} уже занято!'
 
 
 class URLMap(db.Model):

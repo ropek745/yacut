@@ -4,14 +4,12 @@ from flask import jsonify, request, url_for
 
 from . import app
 from .models import URLMap
-from .constants import (
-    INVALID_NAME,
-    URL_REQUIRED,
-    NO_BODY,
-    NAME_ALREADY_TAKEN,
-    NO_ID,
-)
 from .error_handlers import InvalidAPIUsage, ValidationError
+
+
+URL_REQUIRED = '"url" является обязательным полем!'
+NO_BODY = 'Отсутствует тело запроса'
+NO_ID = 'Указанный id не найден'
 
 
 @app.route('/api/id/<string:short>/', methods=['GET'])
