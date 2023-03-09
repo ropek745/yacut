@@ -23,13 +23,14 @@ def get_original_link(short):
 @app.route('/api/id/', methods=['POST'])
 def add_link():
     data = request.get_json()
-
     if data is None:
         raise InvalidAPIUsage(NO_BODY, HTTPStatus.BAD_REQUEST)
     if 'url' not in data:
         raise InvalidAPIUsage(URL_REQUIRED, HTTPStatus.BAD_REQUEST)
     try:
-        url = URLMap.validate_and_create(data.get("url"), data.get("custom_id"), True)
+        url = URLMap.validate_and_create(
+            data.get("url"), data.get("custom_id"), True
+        )
         return jsonify({
             'url': data['url'],
             'short_link': url_for(
