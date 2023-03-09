@@ -73,7 +73,12 @@
     DATABASE_URI=sqlite:///db.sqlite3
     SECRET_KEY=YOUR_SECRET_KEY
    ```
-5. Запустить проект
+   
+5. Выполнить миграции
+    ```
+    flask db upgrade
+   ```
+6. Запустить проект
     ```
    flask run
    ```
