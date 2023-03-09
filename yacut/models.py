@@ -54,7 +54,3 @@ class URLMap(db.Model):
         db.session.add(url)
         db.session.commit()
         return url
-
-
-
-
