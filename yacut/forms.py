@@ -1,15 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, URLField
-from wtforms.validators import DataRequired, Length, Optional, URL
+from wtforms.validators import DataRequired, Length, Optional, Regexp, URL
 
 from .constants import (
     BUTTON_DESC,
     CUSTOM_ID_DESC,
-    CUSTOM_ID_LEN,
     DATA_REQUIRED,
+    INVALID_SYMBOLS,
+    LENGTH_CUSTOM_ID,
     ORIGINAL_LINK_DESC,
     ORIGINAL_LINK_LEN,
     URL_MESSAGE,
+    REGEX
 )
 
 
@@ -26,8 +28,8 @@ class CutLinkForm(FlaskForm):
         CUSTOM_ID_DESC,
         validators=[
             Optional(),
-            Length(max=CUSTOM_ID_LEN),
-
+            Length(max=LENGTH_CUSTOM_ID, message='Недопустимая длина'),
+            Regexp(REGEX, message=INVALID_SYMBOLS)
         ]
     )
     submit = SubmitField(BUTTON_DESC)

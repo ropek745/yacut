@@ -1,8 +1,4 @@
 import os
-from string import ascii_letters, digits
-
-
-SYMBOLS = ascii_letters + digits
 
 
 class Config(object):

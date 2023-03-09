@@ -28,11 +28,11 @@
               </p>
               {{ form.submit(class="btn btn-primary") }}
             </form>
-              {% with messages = get_flashed_messages() %}
-                {% for message in messages %}
-                  <span style="color: red">{{ message }}</span>
-                {% endfor %}
-              {% endwith %}
+            {% with messages = get_flashed_messages() %}
+              {% for message in messages %}
+                <span style="color: red">{{ message }}</span>
+              {% endfor %}
+            {% endwith %}
           </div>
           <div class="col-sm">
           </div>

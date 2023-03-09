@@ -11,12 +11,12 @@ from .constants import (
     NAME_ALREADY_TAKEN,
     NO_ID,
 )
-from .error_handlers import InvalidAPIUsage
+from .error_handlers import InvalidAPIUsage, ValidationError
 
 
 @app.route('/api/id/<string:short>/', methods=['GET'])
 def get_original_link(short):
-    urlmap = URLMap.get_short_object(short).first()
+    urlmap = URLMap.get_object(short)
     if not urlmap:
         raise InvalidAPIUsage(NO_ID, HTTPStatus.NOT_FOUND)
     return jsonify({'url': urlmap.original}), HTTPStatus.OK
@@ -30,29 +30,15 @@ def add_link():
         raise InvalidAPIUsage(NO_BODY, HTTPStatus.BAD_REQUEST)
     if 'url' not in data:
         raise InvalidAPIUsage(URL_REQUIRED, HTTPStatus.BAD_REQUEST)
-    if 'custom_id' not in data or data['custom_id'] is None:
-        data['custom_id'] = URLMap.get_unique_short_id()
-
-    custom_id = data['custom_id']
-    if not URLMap.check_custom_id(custom_id):
-        raise InvalidAPIUsage(INVALID_NAME, HTTPStatus.BAD_REQUEST)
-
-    if not URLMap.is_free_short_id(custom_id):
-        raise InvalidAPIUsage(
-            NAME_ALREADY_TAKEN.format(custom_id=custom_id),
-            HTTPStatus.BAD_REQUEST
-        )
-
-    url = URLMap(
-        original=data.get("url"),
-        short=data.get("custom_id")
-    )
-    URLMap.save(url)
-    return jsonify({
-        'url': data['url'],
-        'short_link': url_for(
-            'redirect_to_original',
-            short=url.short,
-            _external=True,
-        )
-    }), HTTPStatus.CREATED
+    try:
+        url = URLMap.validate_and_create(data.get("url"), data.get("custom_id"), True)
+        return jsonify({
+            'url': data['url'],
+            'short_link': url_for(
+                'redirect_to_original',
+                short=url.short,
+                _external=True,
+            )
+        }), HTTPStatus.CREATED
+    except ValidationError as error:
+        raise InvalidAPIUsage(message=error.message)
