@@ -28,14 +28,14 @@ def add_link():
     if 'url' not in data:
         raise InvalidAPIUsage(URL_REQUIRED, HTTPStatus.BAD_REQUEST)
     try:
-        url = URLMap.validate_and_create(
+        urlmap = URLMap.validate_and_create(
             data.get("url"), data.get("custom_id"), True
         )
         return jsonify({
             'url': data['url'],
             'short_link': url_for(
                 'redirect_to_original',
-                short=url.short,
+                short=urlmap.short,
                 _external=True,
             )
         }), HTTPStatus.CREATED

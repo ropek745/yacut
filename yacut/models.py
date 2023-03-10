@@ -48,7 +48,7 @@ class URLMap(db.Model):
                 )
         if not custom_id:
             custom_id = URLMap.get_unique_short_id()
-        url = URLMap(original=orig_link, short=custom_id)
-        db.session.add(url)
+        urlmap = URLMap(original=orig_link, short=custom_id)
+        db.session.add(urlmap)
         db.session.commit()
-        return url
+        return urlmap

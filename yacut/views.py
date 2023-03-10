@@ -14,7 +14,7 @@ def index_view():
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
     try:
-        url = URLMap.validate_and_create(
+        urlmap = URLMap.validate_and_create(
             form.original_link.data,
             form.custom_id.data)
         return render_template(
@@ -22,7 +22,7 @@ def index_view():
             form=form,
             short_link=url_for(
                 'redirect_to_original',
-                short=url.short,
+                short=urlmap.short,
                 _external=True,
             )
         )
