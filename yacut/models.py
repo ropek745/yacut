@@ -13,6 +13,7 @@ INVALID_NAME = 'Указано недопустимое имя для корот
 NAME_ALREADY_TAKEN = 'Имя "{custom_id}" уже занято.'
 NOT_UNIQUE_ID = 'Имя {custom_id} уже занято!'
 COMBINATIONS_ERROR = 'Кол-во комбинаций исчерпано'
+INVALID_LENGTH = 'Недопустимая длина ссылки'
 
 
 class URLMap(db.Model):
@@ -35,6 +36,8 @@ class URLMap(db.Model):
 
     @staticmethod
     def validate_and_create(orig_link, custom_id=None, validate=False):
+        if len(orig_link) > ORIGINAL_LINK_LEN:
+            raise ValidationError(INVALID_LENGTH)
         if validate and custom_id or custom_id:
             if len(custom_id) > LENGTH_CUSTOM_ID:
                 raise ValidationError(INVALID_NAME)
